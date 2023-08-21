@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Invoice Information</h1>
+    
+    <h2>Job ID:</h2>
+    <!-- Supondo que você tenha o Job ID -->
+    <p>{{ job_id }}</p>
+
+    <h2>Order Details:</h2>
+    <ul>
+        <li>Subtotal: {{ details.prices.subtotal }}</li>
+        <li>Shipping Fee: {{ details.prices.shippingFee }}</li>
+        <li>Descontos: {{ details.prices.discounts }}</li>
+        <li>Taxes: {{ details.prices.taxes }}</li>
+        <li>Valor da Ordem: {{ details.prices.order_value }}</li>
+    </ul>
+
+    <h2>Payment Information:</h2>
+    <ul>
+        <li>Status: {{ details.payment.payment_status }}</li>
+        <li>Method: {{ details.payment.method }}</li>
+        <li>Price: {{ details.payment.value }}</li>
+        <li>Method Detail: {{ details.payment.method_details }}</li>
+    </ul>
+
+    <h2>Invoice Details:</h2>
+    <ul>
+        <li>Reference: {{ details.invoice.reference }}</li>
+    </ul>
+{% endblock %}

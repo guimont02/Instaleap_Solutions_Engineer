@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Facturación</h1>
+    <form action="/process_billing" method="post">
+        <input type="text" name="billing_amount" placeholder="Ingrese la cantidad">
+        <input type="submit" value="Facturar">
+    </form>
+{% endblock %}

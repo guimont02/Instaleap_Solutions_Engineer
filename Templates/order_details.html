@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Order Details</h1>
+
+    <p><strong>Order ID:</strong> {{ job_id }}</p>
+    <p><strong>Slot Description:</strong> {{ slot_description }}</p>
+    <p><strong>Store:</strong> {{ store_name }}</p>
+
+    <!-- Seção de faturamento/invoice -->
+    <div style="text-align: left;">
+        <button onclick="showInvoicing()" style="background-color: #007BFF; color: #FFFFFF; padding: 10px 20px; border: none; border-radius: 5px; cursor: pointer; transition: background-color 0.2s;">
+            Do Invoicing
+        </button>
+    </div>
+    <div id="invoicingSection" style="display:none;">
+        <input type="number" id="amount" placeholder="Enter Amount">
+        <button onclick="finalizeInvoicing()">Check out</button>
+    </div>
+    
+    <div style="margin-top: 20px;">
+        <a href="/" style="background-color: #007BFF; color: #FFFFFF; padding: 10px 20px; text-decoration: none; border-radius: 5px; transition: background-color 0.2s; display: inline-block;">
+            Back to home page
+        </a>
+    </div>
+
+    <script>
+        function showInvoicing() {
+            document.getElementById('invoicingSection').style.display = 'block';
+        }
+
+        function finalizeInvoicing() {
+            var amount = document.getElementById('amount').value;
+            fetch('/process_invoicing', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    amount: amount
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Aqui, você pode redirecionar o usuário para a página de informações da fatura com os dados da resposta.
+                window.location.href = '/invoice_info?order_value=' + data.prices.order_value + '&details=' + JSON.stringify(data);
+
+            })
+            .catch((error) => {
+                console.error('Error:', error);
+            });
+        }
+    </script>
+{% endblock %}

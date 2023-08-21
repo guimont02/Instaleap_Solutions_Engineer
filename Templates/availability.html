@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Select Time Slot:</h1>
+    <form action="/create_order" method="post">
+        {% for slot in slots %}
+            <div>
+                <input type="radio" name="slot_id" value="{{ slot.id }}">
+                <label>{{ slot.description }} ({{ slot.from }} - {{ slot.to }})</label>
+            </div>
+        {% endfor %}
+        <input type="submit" value="Create Order">
+    </form>
+{% endblock %}
+
